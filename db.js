@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize')
+const {Sequelize, DataTypes, models} = require('sequelize')
 const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_bookmarks_workshop')
 
 const Bookmark = db.define('Bookmark', {
@@ -34,5 +34,6 @@ module.exports = {
 	db,
 	model: {
 		Bookmark
-	}
+	},
+	models
 }

@@ -1,6 +1,7 @@
 const route = require('express').Router()
 const {model:{Bookmark}} = require('../db')
 
+
 route.post('/', async(req, res, next) => {
 	try {
 		const bookmark = await Bookmark.create(req.body)
@@ -16,9 +17,9 @@ route.get('/', async(req, res, next) => {
 		const bookmarks = await Bookmark.findAll()
 		res.send(`
 			<html>
-				<head>
-					<link rel="stylesheet" href="/style.css">
-				</head>
+			<head>
+				<link rel="stylesheet" href="/style.css">
+			</head>
 				<body>
 					<h1>Acme Bookmarks ${bookmarks.length}</h1>
 					<form method="POST">
@@ -28,11 +29,13 @@ route.get('/', async(req, res, next) => {
 						<button>Add</button>
 					</form>
 					<ul>
-					${bookmarks.map(bookmark => `<li>
+					${bookmarks.map(bookmark => `
+					<li>
 						${bookmark.id}
 						${bookmark.bookmark}
 						<a href="/categories/${bookmark.category}">${bookmark.category}</a>
-						</li>
+						<a href="/edit/${bookmark.id}">edit</a>
+					</li>
 					`).join('')}
 					</ul>
 				</body>

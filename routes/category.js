@@ -1,6 +1,7 @@
 const route = require('express').Router()
 const {model:{Bookmark}} = require('../db')
 
+
 route.get('/:category', async(req, res, next) => {
 	try {
 		const category = req.params.category
@@ -12,10 +13,11 @@ route.get('/:category', async(req, res, next) => {
 				</head>
 				<body>
 					<h1>Acme Bookmarks</h1>
+						
 						<ul>${bookmarks.map(val => 
-						`
-							<form method="POST" action="/categories/${val.id}?_method=DELETE">
+						`		
 								<li>${val.bookmark}</li>
+								<form method="POST" action="/categories/${val.id}?_method=DELETE">
 								<button>X</button>
 							</form>
 						`
