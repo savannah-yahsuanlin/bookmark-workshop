@@ -1,0 +1,16 @@
+li {
+	line-height: 2;
+	font-size: 20px;
+	list-style-type: none;
+}
+
+
+form {
+	display: flex;
+	width: 500px;
+}
+
+form > * {
+	line-height: 2;
+	margin: 10px 0;
+}
