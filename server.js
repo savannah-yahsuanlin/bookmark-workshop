@@ -1,12 +1,13 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const {db, seedAndSync, model:{Bookmark}, models} = require('./db')
+const morgan = require('morgan')
+const {db, seedAndSync, models:{Bookmark}} = require('./db')
 
 const app = express()
 
+app.use(morgan('dev'))
+
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({ extended: false }))
-app.use(bodyParser.raw({ extended: true }))
 app.use(require('method-override')('_method'))
 
 

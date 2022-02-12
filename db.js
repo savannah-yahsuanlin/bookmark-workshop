@@ -32,8 +32,7 @@ const seedAndSync = async() => {
 module.exports = {
 	seedAndSync,
 	db,
-	model: {
+	models: {
 		Bookmark
-	},
-	models
+	}
 }

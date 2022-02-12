@@ -1,13 +1,23 @@
+const express = require('express')
 const route = require('express').Router()
-const bodyParser = require('body-parser')
-const {model:{Bookmark}} = require('../db')
-const textParser = bodyParser.text()
-route.get('/:id', textParser, async(req, res, next) => {
+const {models:{Bookmark}} = require('../db')
+
+route.use(express.urlencoded({ extended: false }))
+
+route.put('/edit/:id', async(req, res, next) => {
 	try {
-		const id = req.params.id
-		const bookmarkOne = await Bookmark.findOne({where: {id}})
-		const bookmarksUpdate = await Bookmark.update(`${req.body}`, {where: {id}})
-	console.log(bookmarksUpdate)
+		const bookmark = await Bookmark.findByPk(req.params.id)
+		await bookmark.update(req.body)	
+		res.redirect('/bookmark')
+	}
+	catch(ex) {
+		next(ex)
+	}
+})
+
+route.get('/:id', async(req, res, next) => {
+	try {
+		const bookmarkOne = await Bookmark.findByPk(req.params.id)
 		res.send(
 		`
 		<html>
@@ -17,8 +27,8 @@ route.get('/:id', textParser, async(req, res, next) => {
 			<body>
 				<h1>Acme Bookmarks</h1>
 				<ul>
-					<form method="POST" action="/edit/${bookmarkOne.id}?_method=PUT">
-						<input name="id" placeholder="id" value="${bookmarkOne.id}">
+					<form method="POST" action="/edit?_method=PUT">
+						<p>${bookmarkOne.id}</p>
 						<input name="bookmark" placeholder="bookmark" value="${bookmarkOne.bookmark}" autofocus>
 						<input name="category" placeholder="category" value="${bookmarkOne.category}">
 						<button>Update</button>

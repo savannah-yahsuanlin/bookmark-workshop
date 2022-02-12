@@ -1,5 +1,5 @@
 const route = require('express').Router()
-const {model:{Bookmark}} = require('../db')
+const {models:{Bookmark}} = require('../db')
 
 
 route.get('/:category', async(req, res, next) => {
