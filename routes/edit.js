@@ -4,7 +4,7 @@ const {models:{Bookmark}} = require('../db')
 
 route.use(express.urlencoded({ extended: false }))
 
-route.put('/edit/:id', async(req, res, next) => {
+route.put('/:id', async(req, res, next) => {
 	try {
 		const bookmark = await Bookmark.findByPk(req.params.id)
 		await bookmark.update(req.body)	
